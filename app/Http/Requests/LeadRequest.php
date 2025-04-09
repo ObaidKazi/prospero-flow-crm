@@ -25,6 +25,8 @@ class LeadRequest extends FormRequest
             'phone.max_digits' => 'Phone field should have :max_digits max digits.',
             'phone2.max_digits' => 'Phone2 field should have :max_digits max digits.',
             'mobile.max_digits' => 'Mobile field should have :max_digits max digits.',
+            'latitude.required' => 'Kindly search the location first.',
+            'longitude.required' => 'Kindly search the location first.',
         ];
     }
 
@@ -68,8 +70,8 @@ class LeadRequest extends FormRequest
             'zipcode' => 'nullable|max:10',
             'schedule_contact' => 'nullable|date',
             'industry_id' => 'nullable|numeric',
-            'latitude' => 'nullable|numeric|gte:-90|lte:90|required_with:longitude',
-            'longitude' => 'nullable|numeric|gte:-180|lte:180|required_with:latitude',
+            'latitude' => 'required|numeric|gte:-90|lte:90|required_with:longitude',
+            'longitude' => 'required|numeric|gte:-180|lte:180|required_with:latitude',
             'opt_in' => 'nullable',
             'tags' => 'nullable',
             'status' => 'nullable', // @todo validate status options

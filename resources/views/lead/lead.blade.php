@@ -34,7 +34,7 @@
                         <select name="source_id" id="source_id" class="form-select form-select-lg">
                             <option value=""></option>
                             @foreach ($sources as $source)
-                            <option value="{{ $source->id }}" @if($source->id == $lead->source_id) selected="selected" @endif>
+                            <option value="{{ $source->id }}" @if(old('source_id', $lead->source_id) == $source->id) selected="selected" @endif>
                                 {{ __($source->name) }}
                             </option>
                             @endforeach
@@ -140,15 +140,15 @@
                     <div class="col">
                         <label for="search-address">{{ __('Search for an address') }}</label>
                         <div class="input-group">
-                            <input type="text" id="search-address" placeholder="{{ __('Search for an address') }}" class="form-control form-control-lg">
-                            <button type="button" onclick="getCoordinates()" class="btn btn-secondary"><i class="las la-search"></i></button>
+                            <input type="text" id="search-address" placeholder="{{ __('Search for an address') }}" class="form-control form-control-lg" required name="search_address" value="{{ old('search_address') }}">
+                            <button type="button" onclick="getCoordinates()" class="btn btn-secondary" ><i class="las la-search"></i></button>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12 col-md-6">
-                        <label for="country_id">{{ __('Country') }}</label>
-                        <input name="country_id" id="country_id" list="countryList" value="{{ $lead->country_id }}" class="form-control form-control-lg">
+                        <label for="country_id">{{ __('Country') }}<span class="text-danger">*</span></label>
+                        <input name="country_id" id="country_id" list="countryList" value="{{ old('country_id', $lead->country_id) }}" class="form-control form-control-lg" required>
 
                         <datalist id="countryList">
                             @foreach ($countries as $country)
@@ -276,7 +276,7 @@
                         <select name="industry_id" id="industry_id" class="form-select form-select-lg">
                             <option value=""></option>
                             @foreach($industries as $industry)
-                            <option value="{{ $industry->id }}" @if($lead->industry_id == $industry->id) selected="selected" @endif>
+                            <option value="{{ $industry->id }}" @if(old('industry_id', $lead->industry_id) == $industry->id) selected="selected" @endif>
                                 {{ __($industry->name) }}
                             </option>
                             @endforeach
@@ -287,7 +287,7 @@
                         <select name="status" id="status" class="form-select form-select-lg">
                             <option value="">{{ __('Choose') }}</option>
                             @foreach(\App\Models\Lead::getStatus() as $key => $status)
-                            <option value="{{ $key }}" @if($lead->status == $key) selected="selected" @endif>
+                            <option value="{{ $key }}" @if(old('status', $lead->status) == $key) selected="selected" @endif>
                                 {{ __($status) }}
                             </option>
                             @endforeach
@@ -304,9 +304,7 @@
                     <div class="col mt-2">
                         <label for="tags"><i class="las la-hashtag"></i> {{ __('Tags') }}</label>
                         <textarea name="tags" id="tags" placeholder="keyword, special keyword, keyword2"
-                                  class="form-control form-control-lg">
-                            {{ (!empty($lead->tags)) ? implode(',', $lead->tags) : '' }}
-                        </textarea>
+                                  class="form-control form-control-lg">{{ old('tags', (!empty($lead->tags)) ? implode(',', $lead->tags) : '') }}</textarea>
                     </div>
                     <div class="col mt-2">
                         <label for="seller_id">{{ __('Seller') }} <span class="text-danger">*</span></label>
@@ -314,7 +312,7 @@
                             <option value=""></option>
                             @foreach ($sellers as $seller)
                                 <option value="{{ $seller->id }}"
-                                        @if ($lead->seller_id == $seller->id) selected="selected" @endif>
+                                        @if(old('seller_id', $lead->seller_id) == $seller->id) selected="selected" @endif>
                                     {{ $seller->first_name . ' ' . $seller->last_name }}</option>
                             @endforeach
                         </select>
