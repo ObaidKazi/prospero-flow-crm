@@ -14,6 +14,7 @@
     var latitude = "{{ $attributes['latitude'] }}";
     var longitude = "{{ $attributes['longitude'] }}";
     var map = L.map("map");
+    var marker = null; // Add this global marker variable
 
     function initializeMap(latitude, longitude) {
         // Verifica si hay coordenadas disponibles y establece el centro del mapa y el marcador si es así
@@ -73,28 +74,27 @@
     function setMarker(latitude, longitude) {
         if (!latitude || !longitude) {
             document.getElementById('map').innerHTML = "<p class='p-3'>{{ __('It is not possible to show the map of the location because the geolocation is not established.') }}</p>";
-            return; // No hagas nada si no hay coordenadas válidas
+            return;
         }
 
-        if (latitude && longitude) {
-
-            if (!map.hasLayer(marker)) {
-                // Si el marcador aún no está agregado al mapa, agrégalo
-                marker = L.marker([latitude, longitude]).addTo(map);
-            } else {
-                // Si el marcador ya está en el mapa, actualiza su posición
-                marker.setLatLng([latitude, longitude]);
-            }
-
-            // Centrar el mapa en la nueva posición del marcador
-            map.setView([latitude, longitude], 18);
-
-            /*
+        // Initialize tiles if not already added
+        if (!map.hasLayer(L.tileLayer)) {
             var tiles = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-                maxZoom: 20
-                , attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-            }).addTo(map);*/
+                maxZoom: 20,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(map);
         }
+
+        // Remove existing marker if it exists
+        if (marker !== null) {
+            marker.remove();
+        }
+
+        // Create new marker
+        marker = L.marker([latitude, longitude]).addTo(map);
+
+        // Center the map on the new position
+        map.setView([latitude, longitude], 18);
     }
 
     function getCoordinates() {
