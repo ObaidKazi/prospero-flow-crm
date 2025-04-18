@@ -140,15 +140,15 @@
                     <div class="col">
                         <label for="search-address">{{ __('Search for an address') }}</label>
                         <div class="input-group">
-                            <input type="text" id="search-address" placeholder="{{ __('Search for an address') }}" class="form-control form-control-lg" required name="search_address" value="{{ old('search_address') }}">
+                            <input type="text" id="search-address" placeholder="{{ __('Search for an address') }}" class="form-control form-control-lg"  name="search_address" value="{{ old('search_address') }}">
                             <button type="button" onclick="getCoordinates()" class="btn btn-secondary" ><i class="las la-search"></i></button>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12 col-md-6">
-                        <label for="country_id">{{ __('Country') }}<span class="text-danger">*</span></label>
-                        <input name="country_id" id="country_id" list="countryList" value="{{ old('country_id', $lead->country_id) }}" class="form-control form-control-lg" required>
+                        <label for="country_id">{{ __('Country') }}</label>
+                        <input name="country_id" id="country_id" list="countryList" value="{{ old('country_id', $lead->country_id) }}" class="form-control form-control-lg" >
 
                         <datalist id="countryList">
                             @foreach ($countries as $country)
@@ -283,8 +283,8 @@
                         </select>
                     </div><!--./col-->
                     <div class="col">
-                        <label for="status">{{ __('Status') }}</label>
-                        <select name="status" id="status" class="form-select form-select-lg">
+                        <label for="status">{{ __('Status') }} <span class="text-danger">*</span></label>
+                        <select name="status" id="status" class="form-select form-select-lg" required>
                             <option value="">{{ __('Choose') }}</option>
                             @foreach(\App\Models\Lead::getStatus() as $key => $status)
                             <option value="{{ $key }}" @if(old('status', $lead->status) == $key) selected="selected" @endif>
