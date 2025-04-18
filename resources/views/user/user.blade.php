@@ -12,12 +12,12 @@
         <div class="row form-group mb-3">
             <div class="col">
                 <label for="first_name" class="control-label">{{ __('First name') }}</label>
-                <input type="text" name="first_name" id="first_name" value="{{ $user->first_name }}" required autofocus
+                <input type="text" name="first_name" id="first_name" value="{{ old('first_name', $user->first_name) }}" required autofocus
                        maxlength="80" class="form-control form-control-lg">
             </div>
             <div class="col">
                 <label for="last_name" class="control-label">{{ __('Last name') }}</label>
-                <input type="text" name="last_name" id="last_name" value="{{ $user->last_name }}" required
+                <input type="text" name="last_name" id="last_name" value="{{ old('last_name', $user->last_name) }}" required
                        maxlength="80" class="form-control form-control-lg">
             </div>
         </div><!--./row-->
@@ -25,12 +25,12 @@
         <div class="row form-group mb-3">
             <div class="col">
                 <label for="email" class="col-md-4 control-label">E-Mail</label>
-                <input type="email" name="email" id="email" value="{{ $user->email }}" required maxlength="255"
+                <input type="email" name="email" id="email" value="{{ old('email', $user->email) }}" required maxlength="255"
                        class="form-control form-control-lg">
             </div>
             <div class="col">
                 <label for="phone" class="col-md-4 control-label">{{ __('Phone') }}</label>
-                <input type="tel" name="phone" id="phone" value="{{ $user->phone }}" maxlength="15"
+                <input type="tel" name="phone" id="phone" value="{{ old('phone', $user->phone) }}" maxlength="15"
                        class="form-control form-control-lg">
             </div>
         </div><!--./row-->
@@ -41,7 +41,7 @@
                 <select name="lang" id="lang" required="required" class="form-select form-control-lg">
                   <option value=""></option>
                   @foreach ($languages as $code => $name)
-                  <option value="{{ $code }}" @if($user->lang == $code) selected="selected" @endif>{{ $name }}</option>
+                  <option value="{{ $code }}" @if(old('lang', $user->lang) == $code) selected="selected" @endif>{{ $name }}</option>
                   @endforeach
                 </select>
             </div>
@@ -50,7 +50,10 @@
                 <label for="roles">{{ __('Roles') }}</label>
                 <select name="roles[]" id="roles" multiple class="form-select form-control-lg">
                     @foreach($roles as $role)
-                        <option value="{{ $role->name }}" @if($user->hasRole($role->name)) selected="selected" @endif>{{ __($role->name) }}</option>
+                        <option value="{{ $role->name }}" 
+                            @if(collect(old('roles', $user->roles->pluck('name')->toArray()))->contains($role->name)) selected="selected" @endif>
+                            {{ __($role->name) }}
+                        </option>
                     @endforeach
                 </select>
             </div>
@@ -81,14 +84,14 @@
                 <select name="company_id" id="company_id" required="required" class="form-select form-control-lg">
                     <option value=""></option>
                     @foreach($companies as $company)
-                        <option value="{{ $company->id }}" @if($user->company_id == $company->id) selected="selected" @endif>{{ $company->name }}</option>
+                        <option value="{{ $company->id }}" @if(old('company_id', $user->company_id) == $company->id) selected="selected" @endif>{{ $company->name }}</option>
                     @endforeach
                 </select>
             </div>
             @endif
             <div class="col">
                 <label for="timezone" class="control-label">{{ __('Time zone') }}</label>
-                <input name="timezone" id="timezone" list="timezoneOptions" value="{{ $user->timezone }}" placeholder="{{ __('Type to search') }}..." autocomplete="off"  class="form-control form-control-lg">
+                <input name="timezone" id="timezone" list="timezoneOptions" value="{{ old('timezone', $user->timezone) }}" placeholder="{{ __('Type to search') }}..." autocomplete="off"  class="form-control form-control-lg">
 
                 <datalist id="timezoneOptions">
                     @foreach ($timezones as $name)
@@ -103,7 +106,7 @@
                 <button type="submit" class="btn btn-primary btn-lg">{{ __('Save') }}</button>
             </div>
         </div>
-        <input type="hidden" name="id" value="{{ ($user->id) ?? $user->id }}">
+        <input type="hidden" name="id" value="{{ old('id', ($user->id) ?? $user->id) }}">
         </form>
     </div><!--./card-body-->
 </div><!--./card-->
