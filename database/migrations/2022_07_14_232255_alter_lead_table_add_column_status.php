@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('twitter')->nullable()->after('instagram');
             $table->string('youtube')->nullable()->after('twitter');
             $table->string('tiktok')->nullable()->after('youtube');
-            $table->enum('status', ['open', 'first_contact', 'recall', 'quote', 'quoted', 'waiting_for_answer', 'standby', 'closed'])->nullable()->default('open')->after('country_id');
+            $table->enum('status', ['open', 'first_contact', 'recall', 'quote', 'quoted', 'waiting_for_answer', 'standby', 'closed','in_progress','waiting_feedback','converted'])->nullable()->default('open')->after('country_id');
         });
     }
 
