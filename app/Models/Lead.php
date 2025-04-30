@@ -229,12 +229,16 @@ class Lead extends Model
         return Lead::all();
     }
 
-    public function getAllByCompanyId(int $company_id, ?string $search, ?array $filters, ?string $order_by = 'created_at'): mixed
+    public function getAllByCompanyId(int $company_id=0, ?string $search, ?array $filters, ?string $order_by = 'created_at'): mixed
     {
         if (is_null($order_by)) {
             $order_by = 'created_at';
         }
-        $leads = Lead::where('company_id', $company_id);
+        if($company_id==0){
+            $leads = Lead::query();
+        }else{
+            $leads = Lead::where('company_id', $company_id);
+        }
         if (! empty($search)) {
             $leads->where(function ($query) use ($search) {
                 $words = explode(' ', $search);
@@ -258,14 +262,23 @@ class Lead extends Model
         return $leads->orderBy($order_by, 'desc')->paginate(10);
     }
 
-    public function getCountByCompany(int $company_id): int
+    public function getCountByCompany(int $company_id=0): int
     {
-        return Lead::where('company_id', $company_id)->count();
+      if($company_id==0){
+            $leads = Lead::query();
+    }else{
+        $leads = Lead::where('company_id', $company_id);
+    }
+        return $leads->count();
     }
 
-    public function getLatestByCompany(int $company_id, int $limit = 10)
+    public function getLatestByCompany(int $company_id=0, int $limit = 10)
     {
-        $leads = Lead::where('company_id', $company_id);
+        if($company_id==0){
+            $leads = Lead::query();
+        }else{
+            $leads = Lead::where('company_id', $company_id);
+        }
         $leads->orderBy('created_at', 'DESC');
 
         return $leads->limit($limit)->get();

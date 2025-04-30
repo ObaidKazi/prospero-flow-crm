@@ -135,9 +135,13 @@ class User extends Authenticatable implements JWTSubject
         );
     }
 
-    public function getAllActiveByCompany(int $company_id)
+    public function getAllActiveByCompany(int $company_id=0)
     {
-        return User::where('company_id', $company_id)->get();
+        if($company_id==0){
+            return User::where('deleted_at', null)->get();
+        }else{
+            return User::where('company_id', $company_id)->get();
+        }
     }
 
     protected function timezone(): Attribute

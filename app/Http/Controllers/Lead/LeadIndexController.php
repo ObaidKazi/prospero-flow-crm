@@ -58,18 +58,27 @@ class LeadIndexController extends MainController
         if ($request->filled('order_by')) {
             $order_by = $request->order_by;
         }
+        if(Auth::user()->hasRole('SuperAdmin')){
+            if($request->company_id!=null||$request->company_id!=''){
+                $company_id=$request->company_id;
+            }else{
+                $company_id=0;
+            }
+        }else{
+            $company_id=Auth::user()->company_id;
+        }
 
         $lead = new Lead;
         $data['colors'] = config('color');
         $data['bootstrap_colors'] = ['text-bg-primary', 'text-bg-secondary', 'text-bg-success', 'text-bg-danger', 'text-bg-warning', 'text-bg-info'];
         $data['countries'] = Country::orderBy('name')->get();
-        $data['lead_count'] = Lead::where('company_id', (int) Auth::user()->company_id)->count();
-        $data['leads'] = $lead->getAllByCompanyId((int) Auth::user()->company_id, $search, $filters, $order_by);
+        $data['lead_count'] = Lead::where('company_id', $company_id)->count();
+        $data['leads'] = $lead->getAllByCompanyId($company_id, $search, $filters, $order_by);
         $data['search'] = $search;
-        $data['sellers'] = $user->getAllActiveByCompany((int) Auth::user()->company_id);
+        $data['sellers'] = $user->getAllActiveByCompany($company_id);
         $data['statuses'] = $lead->getStatus();
         // Temporary fix get this from configuration
-        $data['industries'] = ((int) Auth::user()->company_id == 3) ? $industry->getAllByCompany((int) Auth::user()->company_id) : $industry->getAll();
+        $data['industries'] = ($company_id == 3) ? $industry->getAllByCompany($company_id) : $industry->getAll();
         $data['filters'] = $filters;
 
         return view('lead.index', $data);
