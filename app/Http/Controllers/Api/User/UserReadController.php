@@ -13,7 +13,7 @@ class UserReadController
 {
     /**
      * @OA\Get(
-     *     path="/user/{id}",
+     *     path="/api/user/{id}",
      *     summary="Get User information",
      *     tags={"User"},
      *     security={{"bearerAuth": {} }},

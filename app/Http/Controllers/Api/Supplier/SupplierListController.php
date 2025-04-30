@@ -12,7 +12,7 @@ class SupplierListController
 {
     /**
      * @OA\Get(
-     *      path="/supplier",
+     *      path="/api/supplier",
      *      summary="Suppliers list by company",
      *      tags={"Supplier"},
      *      security={{"bearerAuth": {} }},

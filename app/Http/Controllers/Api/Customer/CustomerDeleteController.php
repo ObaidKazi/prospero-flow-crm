@@ -13,7 +13,7 @@ class CustomerDeleteController
 {
     /**
      * @OA\Delete (
-     *      path="/customer/{id}",
+     *      path="/api/customer/{id}",
      *      summary="Delete a Customer",
      *      tags={"Customer"},
      *      security={{"bearerAuth": {}}},

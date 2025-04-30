@@ -13,7 +13,7 @@ class SupplierReadController
 {
     /**
      * @OA\Get(
-     *     path="/supplier/{id}",
+     *     path="/api/supplier/{id}",
      *     summary="Get Supplier information",
      *     tags={"Supplier"},
      *     security={{"bearerAuth": {} }},

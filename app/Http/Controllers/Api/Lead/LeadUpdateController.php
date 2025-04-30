@@ -21,7 +21,7 @@ class LeadUpdateController
 
     /**
      * @OA\Put(
-     *     path="/lead/{id}",
+     *     path="/api/lead/{id}",
      *     summary="Update a Lead",
      *     tags={"Lead"},
      *     security={{"bearerAuth": {} }},

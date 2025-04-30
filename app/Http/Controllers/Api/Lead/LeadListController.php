@@ -14,7 +14,7 @@ class LeadListController extends ApiController
 {
     /**
      * @OA\Get(
-     *     path="/lead",
+     *     path="/api/lead",
      *     summary="Lead list by company",
      *     tags={"Lead"},
      *     security={{"bearerAuth": {} }},

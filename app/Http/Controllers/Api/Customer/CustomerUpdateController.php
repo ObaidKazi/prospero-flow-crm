@@ -20,7 +20,7 @@ class CustomerUpdateController
 
     /**
      * @OA\Put(
-     *     path="/customer/{id}",
+     *     path="/api/customer/{id}",
      *     summary="Update a Customer",
      *     tags={"Customer"},
      *     security={{"bearerAuth": {} }},

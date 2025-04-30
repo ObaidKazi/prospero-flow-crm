@@ -19,7 +19,7 @@ class ProductCreateController
 
     /**
      * @OA\Post(
-     *     path="/product",
+     *     path="/api/product",
      *     summary="Create a Product",
      *     tags={"Product"},
      *     security={{"bearerAuth": {} }},

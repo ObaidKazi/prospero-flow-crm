@@ -12,7 +12,7 @@ class ContactListController
 {
     /**
      * @OA\Get(
-     *     path="/contact",
+     *     path="/api/contact",
      *     summary="Contact list by company",
      *     tags={"Contact"},
      *     security={{"bearerAuth": {} }},

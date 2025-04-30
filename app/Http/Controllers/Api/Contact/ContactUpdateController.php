@@ -20,7 +20,7 @@ class ContactUpdateController
 
     /**
      * @OA\Put(
-     *     path="/contact/{id}",
+     *     path="/api/contact/{id}",
      *     summary="Update a Contact",
      *     tags={"Contact"},
      *     security={{"bearerAuth": {} }},

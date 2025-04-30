@@ -18,7 +18,7 @@ class TicketListController
 {
     /**
      * @OA\Get(
-     *     path="/ticket",
+     *     path="/api/ticket",
      *     summary="Ticket list by company",
      *     tags={"Ticket"},
      *     security={{"bearerAuth": {} }},

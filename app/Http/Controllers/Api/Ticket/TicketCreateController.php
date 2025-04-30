@@ -13,7 +13,7 @@ class TicketCreateController
 {
     /**
      * @OA\Post(
-     *     path="/ticket",
+     *     path="/api/ticket",
      *     summary="Create Support Ticket",
      *     tags={"Ticket"},
      *     security={{"bearerAuth": {} }},

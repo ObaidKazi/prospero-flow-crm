@@ -13,7 +13,7 @@ class BrandListController
 {
     /**
      * @OA\Get(
-     *     path="/brand",
+     *     path="/api/brand",
      *     summary="Brand list by company",
      *     tags={"Brand"},
      *     security={{"bearerAuth": {} }},

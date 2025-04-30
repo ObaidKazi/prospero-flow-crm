@@ -12,7 +12,7 @@ class SupplierUpdateController
 {
     /**
      * @OA\Put(
-     *     path="/supplier/{id}",
+     *     path="/api/supplier/{id}",
      *     summary="Update a Supplier",
      *     tags={"Supplier"},
      *     security={{"bearerAuth": {} }},

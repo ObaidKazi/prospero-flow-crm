@@ -12,7 +12,7 @@ class SupplierDeleteController
 {
     /**
      * @OA\Delete (
-     *      path="/supplier/{id}",
+     *      path="/api/supplier/{id}",
      *      summary="Delete a Supplier",
      *      tags={"Supplier"},
      *      security={{"bearerAuth": {} }},

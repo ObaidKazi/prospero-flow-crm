@@ -18,7 +18,7 @@ class LeadDeleteController
 {
     /**
      * @OA\Delete (
-     *      path="/lead/{id}",
+     *      path="/api/lead/{id}",
      *      summary="Delete a Lead",
      *      tags={"Lead"},
      *      security={{"bearerAuth": {}}},

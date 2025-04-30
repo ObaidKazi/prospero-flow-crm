@@ -13,7 +13,7 @@ class CompanyReadController
 {
     /**
      * @OA\Get(
-     *     path="/company/{id}",
+     *     path="/api/company/{id}",
      *     summary="Get Company information",
      *     tags={"Company"},
      *     security={{"bearerAuth": {} }},

@@ -13,7 +13,7 @@ class OrderListController
 {
     /**
      * @OA\Get(
-     *     path="/order",
+     *     path="/api/order",
      *     summary="Orders list by company",
      *     tags={"Order"},
      *     security={{"bearerAuth": {} }},

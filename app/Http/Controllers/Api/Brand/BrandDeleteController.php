@@ -16,7 +16,7 @@ class BrandDeleteController
 {
     /**
      * @OA\Delete (
-     *      path="/brand/{id}",
+     *      path="/api/brand/{id}",
      *      summary="Delete a Brand",
      *      tags={"Brand"},
      *      security={{"bearerAuth": {}}},

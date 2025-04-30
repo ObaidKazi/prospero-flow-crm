@@ -14,7 +14,7 @@ class ProductReadController
 {
     /**
      * @OA\Get(
-     *     path="/product/{id}",
+     *     path="/api/product/{id}",
      *     summary="Get Product information",
      *     tags={"Product"},
      *     security={{"bearerAuth": {} }},

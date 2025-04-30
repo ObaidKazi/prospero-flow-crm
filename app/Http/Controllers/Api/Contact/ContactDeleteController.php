@@ -18,7 +18,7 @@ class ContactDeleteController
 {
     /**
      * @OA\Delete (
-     *      path="/contact/{id}",
+     *      path="/api/contact/{id}",
      *      summary="Delete a Contact",
      *      tags={"Contact"},
      *      security={{"bearerAuth": {}}},

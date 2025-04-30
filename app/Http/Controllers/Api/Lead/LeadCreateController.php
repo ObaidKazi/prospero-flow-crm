@@ -7,8 +7,9 @@ namespace App\Http\Controllers\Api\Lead;
 use App\Repositories\LeadRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator; // Import the Validator facade
 use OpenApi\Annotations as OA;
+use Illuminate\Support\Facades\Log;
 
 class LeadCreateController
 {
@@ -21,17 +22,21 @@ class LeadCreateController
 
     /**
      * @OA\Post(
-     *     path="/lead",
+     *     path="/api/lead",
      *     summary="Create a Lead",
      *     tags={"Lead"},
-     *     security={{"bearerAuth": {} }},
      *     @OA\RequestBody(
      *          @OA\JsonContent(
-     *              required={"name"},
+     *              required={"name", "email"},
      *              @OA\Property(
      *                  property="name",
      *                  type="string",
      *                  example="John Smith"
+     *              ),
+     *              @OA\Property(
+     *                  property="email",
+     *                  type="string",
+     *                  example="john.smith@example.com"
      *              ),
      *              @OA\Property(
      *                   property="business_name",
@@ -40,56 +45,78 @@ class LeadCreateController
      *              ),
      *              @OA\Property(
      *                  property="phone",
-     *                  type="int",
+     *                  type="string", 
      *                  example="34123456789",
-     *              ),
-     *              @OA\Property(
-     *                  property="email",
-     *                  type="string",
-     *                  format="email",
-     *                  example="john@smith.com",
      *              ),
      *              @OA\Property(
      *                  property="notes",
      *                  type="string",
      *                  example="Notes of the lead",
+     *              ), 
+     *              @OA\Property( 
+     *                  property="company_id",
+     *                  type="integer", 
+     *                  example=1,
      *              ),
      *              @OA\Property(
-     *                   property="country_id",
-     *                   type="string",
-     *                   example="ISO Country code 2 digits",
-     *               )
+     *                  property="seller_id",
+     *                  type="integer", 
+     *                  example=1,
+     *              ),
      *          )
      *     ),
      *     @OA\Response(response="201", description="Lead created successfully"),
-     *     @OA\Response(response="400", description="Bad request, please review the parameters")
-     * )
+     *     @OA\Response(
+     *          response="422",
+     *          description="Validation error", 
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="The given data was invalid."),
+     *              @OA\Property(property="errors", type="object", example={"email": {"The email field is required."}})
+     *          )
+     *     ),
+     *     @OA\Response(response="401", description="Unauthorized"),
+     *     @OA\Response(response="500", description="Internal server error")
      *
-     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * )
+     * @return JsonResponse
      */
     public function create(Request $request): JsonResponse
     {
-        $status = 400;
-        $data = [];
-        $valid = $request->validate([
-            'name' => ['required', 'max:80'],
-            'email' => ['required', 'max:254'],
-            'phone' => ['required', 'max:15'],
-        ]);
-        $data = $request->all();
-        $data['country_id'] = ! empty($data['country_id']) ? $data['country_id'] : Auth::user()->company->country_id;
+        try {
+            // Define validation rules
+            $rules = [
+                'name' => ['required', 'string', 'max:80'], // Added string type hint
+                'email' => ['required', 'string', 'max:254', 'email'], // Added string type hint
+                'business_name' => ['nullable', 'string', 'max:255'], // Added validation for fields in OA doc
+                'phone' => ['nullable', 'string', 'max:20'], // Added validation for fields in OA doc
+                'notes' => ['nullable', 'string'], // Added validation for fields in OA doc
+                'company_id' => ['nullable', 'integer', 'exists:company,id'], // Assuming table is 'companies' and type is integer
+                'seller_id' => ['nullable', 'integer', 'exists:user,id'], // Assuming table is 'users' and type is integer
+            ];
 
-        $response = [];
-        if ($valid) {
-            $lead = $this->leadSaveRepository->save($data);
-            if (! empty($lead)) {
-                $status = 201;
-                $response = $lead;
+            // Create a validator instance
+            $validator = Validator::make($request->all(), $rules);
+
+            // Check if validation fails
+            if ($validator->fails()) {
+                // Return a custom JSON response with 422 status code
+                return response()->json([
+                    'message' => 'The given data was invalid.',
+                    'errors' => $validator->errors() // Use Laravel's standard error structure
+                ], 422);
             }
-        } else {
-            $response = $valid->errors();
-        }
 
-        return response()->json($response, $status);
+            // Get validated data
+            $validatedData = $validator->validated();
+
+            // Save the lead using the validated data
+            $lead = $this->leadSaveRepository->save($validatedData);
+
+            // Return success response
+            return response()->json($lead, 201);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json(['message' => $e->getMessage()], 500);
+        }
     }
 }

@@ -20,7 +20,7 @@ class BrandUpdateController
 
     /**
      * @OA\Put(
-     *     path="/brand/{id}",
+     *     path="/api/brand/{id}",
      *     summary="Update Brand information",
      *     tags={"Brand"},
      *     security={{"bearerAuth": {} }},

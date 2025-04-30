@@ -13,7 +13,7 @@ class BrandReadController
 {
     /**
      * @OA\Get(
-     *     path="/brand/{id}",
+     *     path="/api/brand/{id}",
      *     summary="Get Brand information",
      *     tags={"Brand"},
      *     security={{"bearerAuth": {} }},

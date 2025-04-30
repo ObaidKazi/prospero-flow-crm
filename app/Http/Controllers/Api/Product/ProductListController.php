@@ -13,7 +13,7 @@ class ProductListController
 {
     /**
      * @OA\Get(
-     *     path="/product",
+     *     path="/api/product",
      *     summary="Products list by company",
      *     tags={"Product"},
      *     security={{"bearerAuth": {} }},

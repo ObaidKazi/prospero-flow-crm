@@ -12,7 +12,7 @@ class UserListController
 {
     /**
      * @OA\Get(
-     *     path="/user",
+     *     path="/api/user",
      *     summary="Users list by company",
      *     tags={"User"},
      *     security={{"bearerAuth": {} }},

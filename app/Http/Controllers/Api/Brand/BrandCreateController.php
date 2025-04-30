@@ -19,7 +19,7 @@ class BrandCreateController
 
     /**
      * @OA\Post(
-     *     path="/brand",
+     *     path="/api/brand",
      *     summary="Create a Brand",
      *     tags={"Brand"},
      *     security={{"bearerAuth": {} }},

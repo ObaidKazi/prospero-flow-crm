@@ -14,7 +14,7 @@ class ProductDeleteController
 {
     /**
      * @OA\Delete(
-     *     path="/product/{id}",
+     *     path="/api/product/{id}",
      *     summary="Delete a Product",
      *     tags={"Product"},
      *     security={{"bearerAuth": {} }},

@@ -13,7 +13,7 @@ class LeadReadController
 {
     /**
      * @OA\Get(
-     *     path="/lead/{id}",
+     *     path="/api/lead/{id}",
      *     summary="Get Lead information",
      *     tags={"Lead"},
      *     security={{"bearerAuth": {} }},

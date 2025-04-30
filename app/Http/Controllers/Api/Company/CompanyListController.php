@@ -14,7 +14,7 @@ class CompanyListController
 {
     /**
      * @OA\Get(
-     *     path="/company",
+     *     path="/api/company",
      *     summary="Company list by company",
      *     tags={"Company"},
      *     security={{"bearerAuth": {} }},

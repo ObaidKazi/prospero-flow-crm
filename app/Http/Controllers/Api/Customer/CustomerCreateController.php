@@ -20,7 +20,7 @@ class CustomerCreateController
 
     /**
      * @OA\Post(
-     *     path="/customer",
+     *     path="/api/customer",
      *     summary="Create a Customer",
      *     tags={"Customer"},
      *     security={{"bearerAuth": {} }},

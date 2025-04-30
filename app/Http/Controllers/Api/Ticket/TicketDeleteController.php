@@ -17,7 +17,7 @@ class TicketDeleteController
 {
     /**
      * @OA\Delete (
-     *      path="/ticket/{id}",
+     *      path="/api/ticket/{id}",
      *      summary="Delete a Ticket",
      *      tags={"Ticket"},
      *      security={{"bearerAuth": {}}},

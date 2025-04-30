@@ -21,7 +21,7 @@ class ContactCreateController
 
     /**
      * @OA\Post(
-     *     path="/contact",
+     *     path="/api/contact",
      *     summary="Create a contact",
      *     tags={"Contact"},
      *     security={{"bearerAuth": {} }},

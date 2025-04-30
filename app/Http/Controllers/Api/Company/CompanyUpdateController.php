@@ -19,7 +19,7 @@ class CompanyUpdateController
 
     /**
      * @OA\Put(
-     *     path="/company/{id}",
+     *     path="/api/company/{id}",
      *     summary="Update a Company",
      *     tags={"Company"},
      *     security={{"bearerAuth": {} }},

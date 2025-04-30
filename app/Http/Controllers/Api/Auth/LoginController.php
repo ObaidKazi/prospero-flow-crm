@@ -12,7 +12,7 @@ class LoginController extends Controller
     /**
      * Login and get a JWT given auth credentials.
      * @OA\Post(
-     *     path="/auth/login",
+     *     path="/api/auth/login",
      *     summary="Login",
      *     tags={"Auth"},
      *     @OA\RequestBody(

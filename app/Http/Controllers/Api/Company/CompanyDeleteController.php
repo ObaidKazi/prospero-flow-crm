@@ -18,7 +18,7 @@ class CompanyDeleteController
 {
     /**
      * @OA\Delete (
-     *      path="/company/{id}",
+     *      path="/api/company/{id}",
      *      summary="Delete a Company",
      *      tags={"Company"},
      *      security={{"bearerAuth": {}}},

@@ -12,7 +12,7 @@ class CustomerListController
 {
     /**
      * @OA\Get(
-     *     path="/customer",
+     *     path="/api/customer",
      *     summary="Customer list by company",
      *     tags={"Customer"},
      *     security={{"bearerAuth": {} }},

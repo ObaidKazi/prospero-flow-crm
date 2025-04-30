@@ -13,7 +13,7 @@ class SupplierCreateController
 {
     /**
      * @OA\Post (
-     *      path="/supplier",
+     *      path="/api/supplier",
      *      summary="Create a Supplier",
      *      tags={"Supplier"},
      *      security={{"bearerAuth": {} }},

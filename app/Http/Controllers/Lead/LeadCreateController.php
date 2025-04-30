@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Lead;
 use App\Http\Controllers\MainController;
 use App\Models\Industry;
 use App\Models\Lead;
+use App\Models\Company;
 use App\Models\Source;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -35,6 +36,10 @@ class LeadCreateController extends MainController
         $data['sellers'] = $user->getAllActiveByCompany((int) Auth::user()->company_id);
         $data['sources'] = Source::all();
         $data['editorType'] = 'advanced';
+        $data['companies'] = [];
+        if(Auth::user()->hasRole('SuperAdmin')){
+            $data['companies'] = Company::all();
+        }
 
         return view('lead.lead', $data);
     }

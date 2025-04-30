@@ -13,7 +13,7 @@ class CustomerReadController
 {
     /**
      * @OA\Get(
-     *     path="/customer/{id}",
+     *     path="/api/customer/{id}",
      *     summary="Get Customer information",
      *     tags={"Customer"},
      *     security={{"bearerAuth": {} }},

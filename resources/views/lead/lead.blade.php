@@ -10,18 +10,47 @@
         <div class="card mt-2">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-12 col-md-6">
-                        <label for="name">{{ __('Name') }} <span class="text-danger">*</span></label>
-                        <input type="text" name="name" id="name" value="{{ old('name', $lead->name) }}"
-                               required="required" maxlength="80" class="form-control form-control-lg">
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <label for="business_name">{{ __('Business name') }}</label>
-                        <input type="text" name="business_name" id="business_name"
-                               value="{{ old('business_name', $lead->business_name) }}" maxlength="80"
-                               class="form-control form-control-lg">
-                    </div>
+                    @if(auth()->user() && auth()->user()->hasRole('SuperAdmin'))
+                        
+                        <div class="col-12 col-md-4">
+                            <label for="name">{{ __('Name') }} <span class="text-danger">*</span></label>
+                            <input type="text" name="name" id="name" value="{{ old('name', $lead->name) }}"
+                                   required="required" maxlength="80" class="form-control form-control-lg">
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label for="business_name">{{ __('Business name') }}</label>
+                            <input type="text" name="business_name" id="business_name"
+                                   value="{{ old('business_name', $lead->business_name) }}" maxlength="80"
+                                   class="form-control form-control-lg">
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label for="company_id">{{ __('Company') }}  <span class="text-danger">*</span></label>
+                            <select name="company_id" id="company_id" class="form-control form-control-lg" required>
+                                <option value="">{{ __('Select Company') }}</option>
+                                @foreach($companies as $company)
+                                    <option value="{{ $company->id }}" {{ old('company_id', $lead->company_id) == $company->id ? 'selected' : '' }}>
+                                        {{ $company->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    @else
+                        <div class="col-12 col-md-6">
+                            <label for="name">{{ __('Name') }} <span class="text-danger">*</span></label>
+                            <input type="text" name="name" id="name" value="{{ old('name', $lead->name) }}"
+                                required="required" maxlength="80" class="form-control form-control-lg">
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label for="business_name">{{ __('Business name') }}</label>
+                            <input type="text" name="business_name" id="business_name"
+                                   value="{{ old('business_name', $lead->business_name) }}" maxlength="80"
+                                   class="form-control form-control-lg">
+                        </div>
+                    @endif
+                    
+                    
                 </div><!--./row-->
+               
                 <div class="row">
                     <div class="col-12 col-md-6">
                         <label for="external_id">{{ __('External ID') }}</label>

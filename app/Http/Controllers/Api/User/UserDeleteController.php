@@ -19,7 +19,7 @@ class UserDeleteController
 {
     /**
      * @OA\Delete (
-     *      path="/user/{id}",
+     *      path="/api/user/{id}",
      *      summary="Delete a User",
      *      tags={"User"},
      *      security={{"bearerAuth": {}}},

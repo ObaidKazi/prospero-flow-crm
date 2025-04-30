@@ -18,7 +18,7 @@ class OrderDeleteController
 {
     /**
      * @OA\Delete (
-     *      path="/order/{id}",
+     *      path="/api/order/{id}",
      *      summary="Delete an Order",
      *      tags={"Order"},
      *      security={{"bearerAuth": {}}},

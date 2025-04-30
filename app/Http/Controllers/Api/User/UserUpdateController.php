@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Validator;
 
 /**
  * @OA\Put(
- *     path="/user/{id}",
+ *     path="/api/user/{id}",
  *     summary="Update User information",
  *     tags={"User"},
  *     security={{"bearerAuth": {} }},

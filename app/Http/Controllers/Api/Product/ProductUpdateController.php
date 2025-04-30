@@ -19,7 +19,7 @@ class ProductUpdateController
 
     /**
      * @OA\Put(
-     *     path="/product/{id}",
+     *     path="/api/product/{id}",
      *     summary="Update a Product",
      *     tags={"Product"},
      *     security={{"bearerAuth": {} }},

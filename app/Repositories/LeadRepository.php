@@ -18,8 +18,17 @@ class LeadRepository
             $lead = Lead::find($data['id']);
         }
 
-        $lead->seller_id = (isset($data['seller_id'])) ? $data['seller_id'] : Auth::user()->id;
-        $lead->company_id = Auth::user()->company_id;
+        $lead->seller_id = (isset($data['seller_id'])) ? $data['seller_id'] :null;
+        
+        if(Auth::user()&&Auth::user()->hasRole('SuperAdmin')){
+            $lead->company_id = $data['company_id'];
+        }else{
+            if(isset($data['company_id'])&&!empty($data['company_id'])){
+                $lead->company_id = Auth::user()->company_id;
+            }
+        }
+        
+        
         $lead->external_id = ! empty($data['external_id']) ? $data['external_id'] : null;
         $lead->name = $data['name'];
         $lead->business_name = ! empty($data['business_name']) ? $data['business_name'] : null;
@@ -42,7 +51,7 @@ class LeadRepository
         $lead->youtube = ! empty($data['youtube']) ? rtrim($data['youtube'], '/') : null;
         $lead->tiktok = ! empty($data['tiktok']) ? rtrim($data['tiktok'], '/') : null;
 
-        $lead->country_id = ! empty($data['country_id']) ? strtolower($data['country_id']) : Auth::user()->company->country_id;
+        $lead->country_id = ! empty($data['country_id']) ? strtolower($data['country_id']) : null;
         $lead->province = ! empty($data['province']) ? $data['province'] : null;
         $lead->city = ! empty($data['city']) ? $data['city'] : null;
         $lead->locality = $data['locality'] ?? null;

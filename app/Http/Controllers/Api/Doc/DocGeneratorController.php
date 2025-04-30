@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api\Doc;
 
 use Illuminate\Http\JsonResponse;
-use OpenApi\Annotations as OA;
 use OpenApi\Attributes as OAT;
 
-define('API_HOST', env('APP_API_URL'));
 
 #[
     OAT\Info(
@@ -30,11 +28,7 @@ define('API_HOST', env('APP_API_URL'));
  *     scheme="bearer",
  *     bearerFormat="JWT",
  *     securityScheme="bearerAuth"
- * ),
- * @OA\Server(
- *     url="/api",
- * ),
- * @OA\Server(url=API_HOST)
+ * )
  */
 class DocGeneratorController
 {

@@ -17,7 +17,7 @@ class EmailDeleteController
 {
     /**
      * @OA\Delete (
-     *      path="/email/{id}",
+     *      path="/api/email/{id}",
      *      summary="Delete an Email",
      *      tags={"Email"},
      *      security={{"bearerAuth": {}}},
