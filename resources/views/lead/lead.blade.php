@@ -177,7 +177,7 @@
                 <div class="row">
                     <div class="col-12 col-md-6">
                         <label for="country_id">{{ __('Country') }}</label>
-                        <input name="country_id" id="country_id" list="countryList" value="{{ old('country_id', $lead->country_id) }}" class="form-control form-control-lg" >
+                        <input name="country_id" id="country_id" list="countryList" value="{{ old('country_id', $lead->country_id) }}" class="form-control form-control-lg" required>
 
                         <datalist id="countryList">
                             @foreach ($countries as $country)
