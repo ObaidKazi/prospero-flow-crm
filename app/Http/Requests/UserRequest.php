@@ -27,12 +27,13 @@ class UserRequest extends FormRequest
         return [
             'first_name' => 'required|string|max:80',
             'last_name' => 'required|string|max:80',
-            'email' => 'required|email|max:255',
+            'email' => 'required|email|max:255|exists:user,email',
             'phone' => 'nullable|string|max:15',
             'photo' => 'nullable|string|max:255',
             'lang' => 'required|string|max:2',
             'timezone' => 'nullable|timezone',
-            'password' => 'nullable|string|min:8', // Optional, only if user wants to update password
+            'password' => 'nullable|string|min:8',
+            'password_confirmation' => 'nullable|string|min:8|same:password'
         ];
     }
 }

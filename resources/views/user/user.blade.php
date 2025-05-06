@@ -27,6 +27,11 @@
                 <label for="email" class="col-md-4 control-label">E-Mail</label>
                 <input type="email" name="email" id="email" value="{{ old('email', $user->email) }}" required maxlength="255"
                        class="form-control form-control-lg">
+                @if ($errors->has('email'))
+                       <span class="help-block">
+                           <strong>{{ $errors->first('email') }}</strong>
+                       </span>
+                @endif
             </div>
             <div class="col">
                 <label for="phone" class="col-md-4 control-label">{{ __('Phone') }}</label>
@@ -75,6 +80,11 @@
                 <label for="password-confirm" class="control-label">{{ __('Confirm password') }}</label>
                 <input type="password" name="password_confirmation" id="password-confirm" autocomplete="off"
                        class="form-control form-control-lg" required>
+                @if ($errors->has('password_confirmation'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('password_confirmation') }}</strong>
+                    </span>
+                @endif
             </div>
         </div><!--./row-->
         <div class="row form-group mb-3">
