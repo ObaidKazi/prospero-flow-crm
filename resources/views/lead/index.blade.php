@@ -60,7 +60,6 @@
                     </a>
                 </th>
                 <th>{{ __('Business name') }}</th>
-                <th>{{ __('Phone') }}</th>
                 <th>{{ __('Mobile') }}</th>
                 <th>Email</th>
                 <th>{{ __('Website') }}</th>
@@ -100,24 +99,6 @@
                     <a href="{{ url("/lead/show/$lead->id") }}" title="{{ __('Show') }}">{{ $lead->name }}</a>
                 </td>
                 <td class="text-nowrap">{{ $lead->business_name }}</td>
-                <td class="text-nowrap text-center">
-                    @if($lead->phone)
-                        <a href="tel:{{ $lead->phone }}@isset($lead->extension),{{$lead->extension}}@endisset" title="{{ \App\Helpers\PhoneHelper::format($lead->phone) }}"
-                           target="_blank" class="link-secondary text-decoration-none">
-                            <i class="las la-phone fs-4"></i>
-                        </a>
-                        @if($lead->phone_verified == 1)
-                            <i class="las la-check-circle text-success"></i>
-                        @else
-                            <i class="las la-times-circle text-danger"></i>
-                        @endif
-
-                        <a href="sip:{{ $lead->phone }}@isset($lead->extension),{{$lead->extension}}@endisset" title="{{ \App\Helpers\PhoneHelper::format($lead->phone) }}"
-                           target="_blank" class="link-secondary text-decoration-none">
-                            <i class="las la-headset fs-4"></i>
-                        </a>
-                    @endif
-                </td>
                 <td class="text-nowrap text-center">
                     @if($lead->mobile)
                         <a href="tel:{{ $lead->mobile }}"
