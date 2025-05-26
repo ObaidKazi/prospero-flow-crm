@@ -24,7 +24,7 @@
             <i class="las la-box"></i> {{ __('Products') }}
         </a>
     </li>
-    <li class="nav-item dropdown">
+    {{-- <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle fs-6" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="las la-envelope-open-text"></i> E-mail
         </a>
@@ -40,7 +40,7 @@
                 </a>
             </li>
         </ul>
-    </li>
+    </li> --}}
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle fs-6" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="las la-plus"></i> {{ __('More') }}

@@ -39,26 +39,26 @@ return [
         'icon_class' => 'las la-calendar',
         'permissions' => ['read calendar'],
     ],
-    [
-        'is_drop_down' => true,
-        'title' => 'E-mail',
-        'icon_class' => 'las la-envelope-open-text',
-        'permissions' => [],
-        'children' => [
-            [
-                'url' => url('/email'),
-                'title' => 'E-mail',
-                'icon_class' => 'las la-envelope-open-text',
-                'permissions' => ['read email'],
-            ],
-            [
-                'url' => url('/campaign'),
-                'title' => __('Campaign'),
-                'icon_class' => 'las la-mail-bulk',
-                'permissions' => ['create campaign'],
-            ],
-        ],
-    ],
+    // [
+    //     'is_drop_down' => true,
+    //     'title' => 'E-mail',
+    //     'icon_class' => 'las la-envelope-open-text',
+    //     'permissions' => [],
+    //     'children' => [
+    //         [
+    //             'url' => url('/email'),
+    //             'title' => 'E-mail',
+    //             'icon_class' => 'las la-envelope-open-text',
+    //             'permissions' => ['read email'],
+    //         ],
+    //         [
+    //             'url' => url('/campaign'),
+    //             'title' => __('Campaign'),
+    //             'icon_class' => 'las la-mail-bulk',
+    //             'permissions' => ['create campaign'],
+    //         ],
+    //     ],
+    // ],
     [
         'url' => url('/accounting'),
         'title' => __('Accounting'),

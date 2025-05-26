@@ -75,7 +75,7 @@
         </div>
     </div>
 
-    <div class="col text-center mb-1">
+    {{-- <div class="col text-center mb-1">
         <div class="card">
             <div class="card-body">
                 <a href="{{ url('/email-template') }}">
@@ -86,7 +86,7 @@
                 </a>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     @role('SuperAdmin')
     <div class="col text-center mb-1">
@@ -104,7 +104,7 @@
     @endrole
 
     @role('SuperAdmin')
-    <div class="col text-center mb-1">
+    {{-- <div class="col text-center mb-1">
         <div class="card">
             <div class="card-body">
                 <a href="{{ url('/bank') }}">
@@ -115,7 +115,7 @@
                 </a>
             </div>
         </div>
-    </div>
+    </div> --}}
     @endrole
 </div>
 @endsection
