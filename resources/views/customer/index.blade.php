@@ -53,7 +53,7 @@
             <thead>
             <tr>
                 <th>#ID</th>
-                <th>{{ __('External ID') }}</th>
+                {{-- <th>{{ __('External ID') }}</th> --}}
                 <th>
                     <a href="{{ request()->fullUrlWithQuery(['order_by' => 'name']) }}"
                        class="link-secondary link-underline-opacity-25 link-underline-opacity-100-hover">
@@ -61,7 +61,7 @@
                     </a>
                 </th>
                 <th>{{ __('Business name') }}</th>
-                <th>{{ __('Phone') }}</th>
+                {{-- <th>{{ __('Phone') }}</th> --}}
                 <th>{{ __('Mobile') }}</th>
                 <th>Email</th>
                 <th>{{ __('Website') }}</th>
@@ -96,14 +96,14 @@
             @foreach($customers as $customer)
             <tr>
                 <td class="text-nowrap text-center">{{ $customer->id }}</td>
-                <td class="text-nowrap text-center">{{ $customer->external_id }}</td>
+                {{-- <td class="text-nowrap text-center">{{ $customer->external_id }}</td> --}}
                 <td class="text-nowrap">
                     <a href="{{ url("/customer/show/$customer->id") }}" title="{{ __('Show') }}">
                         {{ $customer->name }}
                     </a>
                 </td>
                 <td class="text-nowrap">{{ $customer->business_name }}</td>
-                <td class="text-nowrap text-center">
+                {{-- <td class="text-nowrap text-center">
                     @if($customer->phone)
                         <a href="tel:{{ $customer->phone }}@isset($customer->extension),{{$customer->extension}}@endisset"
                            title="{{ \App\Helpers\PhoneHelper::format($customer->phone) }}"
@@ -122,7 +122,7 @@
                             <i class="las la-headset fs-4"></i>
                         </a>
                     @endif
-                </td>
+                </td> --}}
                 <td class="text-nowrap text-center">
                     @if($customer->mobile)
                         <a href="https://api.whatsapp.com/send/?phone={{ $customer->mobile }}&text={{ __('Hello') }}"
