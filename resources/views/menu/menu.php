@@ -65,12 +65,12 @@ return [
         'icon_class' => 'las la-coins',
         'permissions' => ['read accounting'],
     ],
-    [
-        'url' => url('/supplier'),
-        'title' => __('Suppliers'),
-        'icon_class' => 'las la-dolly',
-        'permissions' => ['read supplier'],
-    ],
+    // [
+    //     'url' => url('/supplier'),
+    //     'title' => __('Suppliers'),
+    //     'icon_class' => 'las la-dolly',
+    //     'permissions' => ['read supplier'],
+    // ],
     [
         'url' => url('/ticket'),
         'title' => __('Tickets'),
