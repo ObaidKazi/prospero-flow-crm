@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Mcp\McpAgentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -113,3 +113,7 @@ require_once __DIR__.'/module/bank_account.php';
 
 // Payroll
 require_once __DIR__.'/module/payroll.php';
+
+
+Route::post('/api/mcp/chat', [McpAgentController::class, 'chat']);
+Route::get('/api/mcp/suggestions', [McpAgentController::class, 'suggestions']);

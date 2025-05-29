@@ -50,7 +50,7 @@
         @if(empty(Auth::user()->company->logo))
             {{ env('APP_NAME') }}
         @else
-            <img src="/asset/upload/company/{{ \Illuminate\Support\Str::slug(Auth::user()->company->name, '_') }}/{{ Auth::user()->company->logo }}" alt="{{ env('APP_NAME') }}" class="logo">
+            <img src="/asset/upload/company/{{ \Illuminate\Support\Str::slug(Auth::user()->company->name??'', '_') }}/{{ Auth::user()->company->logo }}" alt="{{ env('APP_NAME') }}" class="logo">
         @endif
         @if(!App::environment('production'))
             <span class="float-right">
@@ -58,7 +58,7 @@
             </span>
         @endif
         </div>
-        <b>Bienvenido, {{ Auth::user()->first_name }}</b>
+        <b>Hello, {{ Auth::user()->first_name }}</b>
     </div>
 
     <div class="lockscreen-item">
@@ -67,7 +67,7 @@
                 @if(empty(Auth::user()->photo))
                     <img src="/asset/img/user.jpg" alt="{{ Auth::user()->first_name }}" width="64" height="64" class="rounded-circle">
                 @else
-                    <img src="/asset/upload/company/{{ \Illuminate\Support\Str::slug(Auth::user()->company->name, '_') }}/{{ Auth::user()->photo }}" alt="{{ Auth::user()->first_name }}" width="64" height="64" class="rounded-circle">
+                    <img src="/asset/upload/company/{{ \Illuminate\Support\Str::slug(Auth::user()->company->name??'', '_') }}/{{ Auth::user()->photo }}" alt="{{ Auth::user()->first_name }}" width="64" height="64" class="rounded-circle">
                 @endif
             </div>
             {{ Auth::user()->first_name }}

@@ -199,6 +199,21 @@ class Lead extends Model
         return $this->hasMany(Message::class);
     }
 
+    public static function search($params)
+    {
+        $query = static::query();
+        if (isset($params['query'])) {
+            $search = $params['query'];
+            $query->where(function ($q) use ($search) {
+                foreach ((new static)->getFillable() as $column) {
+                    $q->orWhere($column, 'like', "%$search%");
+                }
+            });
+        }
+
+        return $query->get();
+    }
+
     public function seller()
     {
         return $this->hasOne(\App\Models\User::class, 'id', 'seller_id');
@@ -229,14 +244,14 @@ class Lead extends Model
         return Lead::all();
     }
 
-    public function getAllByCompanyId(int $company_id=0, ?string $search, ?array $filters, ?string $order_by = 'created_at'): mixed
+    public function getAllByCompanyId(int $company_id = 0, ?string $search, ?array $filters, ?string $order_by = 'created_at'): mixed
     {
         if (is_null($order_by)) {
             $order_by = 'created_at';
         }
-        if($company_id==0){
+        if ($company_id == 0) {
             $leads = Lead::query();
-        }else{
+        } else {
             $leads = Lead::where('company_id', $company_id);
         }
         if (! empty($search)) {
@@ -262,21 +277,21 @@ class Lead extends Model
         return $leads->orderBy($order_by, 'desc')->paginate(10);
     }
 
-    public function getCountByCompany(int $company_id=0): int
+    public function getCountByCompany(int $company_id = 0): int
     {
-      if($company_id==0){
+        if ($company_id == 0) {
             $leads = Lead::query();
-    }else{
-        $leads = Lead::where('company_id', $company_id);
-    }
+        } else {
+            $leads = Lead::where('company_id', $company_id);
+        }
         return $leads->count();
     }
 
-    public function getLatestByCompany(int $company_id=0, int $limit = 10)
+    public function getLatestByCompany(int $company_id = 0, int $limit = 10)
     {
-        if($company_id==0){
+        if ($company_id == 0) {
             $leads = Lead::query();
-        }else{
+        } else {
             $leads = Lead::where('company_id', $company_id);
         }
         $leads->orderBy('created_at', 'DESC');
@@ -319,6 +334,31 @@ class Lead extends Model
             self::CLOSED => 'Closed',
         ];
     }
+
+    // app/Models/Lead.php
+
+    public static function updateLeadFields($params)
+    {
+        $id = $params['id'] ?? null;
+        if (!$id) return ['error' => 'Lead ID is required.'];
+        $lead = static::find($id);
+        if (!$lead) return ['error' => 'Lead not found.'];
+
+        $updated = false;
+        foreach (['name', 'email', 'status'] as $field) {
+            if (isset($params[$field]) && !empty($params[$field])) {
+                $lead->$field = $params[$field];
+                $updated = true;
+            }
+        }
+        if ($updated) {
+            $lead->save();
+            return $lead->toArray();
+        } else {
+            return ['error' => 'No fields to update.'];
+        }
+    }
+
 
     protected static function booted(): void
     {
