@@ -96,6 +96,7 @@ class McpAgentController extends Controller
                         If you output anything other than valid HTML, the user interface will break and the user will not be able to see the answer.
                         Highlight important fields such as name, status, email with <strong> or inline CSS.
                         Each item in a list must be a separate <div>.
+                        and convert datetime in human readable format.
                         IF data is missing, NEVER generate an HTML form, just say what is missing in a <div>.
                         For example: <div>Please provide the search query.</div>
                     PROMPT
