@@ -12,31 +12,24 @@ class McpAgentController extends Controller
     {
         $sessionId = $request->session()->getId();
 
-
         $message = $request->input('message');
         $page = $request->input('page'); // For suggestion context
         $history = cache()->get("mcp_history_{$page}_$sessionId}", []);
+
         $systemPrompt = <<<PROMPT
-            You are a helpful assistant for the $page page.
-            Only answer page-related or greeting questions, refuse off-topic politely.
-            ALWAYS reply ONLY in HTML.
-            NEVER use markdown, never wrap your answer in ``` or code blocks, and never use bullet points, numbers, or dashes.
-            Reply using ONLY HTML tags: <div>, <p>, <strong>, <span>, <ul>, <li>.
-            DO NOT use numbers or hyphens for lists—just separate each item with a new <div> or <p>.
-            If you output anything other than valid HTML, the user interface will break and the user will not be able to see the answer.
-            Highlight important fields such as name, status, email with <strong> or inline CSS.
-            Each item in a list must be a separate <div>.
-
-            For example, if you receive this data:
-            [{"name": "Test", "status": "Open", "email": "test@ex.com"}]
-
-            Reply as:
-            <div>
-            <p><strong>Name:</strong> Test</p>
-            <p><strong>Status:</strong> <span style='color:green'>Open</span></p>
-            <p><strong>Email:</strong> test@ex.com</p>
-            </div>
-            PROMPT;
+        You are a helpful assistant for the $page page.
+        Only answer page-related or greeting questions, refuse off-topic politely.
+        ALWAYS reply ONLY in HTML.
+        NEVER use markdown, never wrap your answer in ``` or code blocks, and never use bullet points, numbers, or dashes.
+        Reply using ONLY HTML tags: <div>, <p>, <strong>, <span>, <ul>, <li>.
+        DO NOT use numbers or hyphens for lists—just separate each item with a new <div> or <p>.
+        If you output anything other than valid HTML, the user interface will break and the user will not be able to see the answer.
+        Highlight important fields such as name, status, email with <strong> or inline CSS.
+        Each item in a list must be a separate <div>.
+        IF the user has not provided required information, NEVER create or show an HTML form.
+        INSTEAD, just politely ask for the missing information as plain text in a <p> or <div> tag.
+        For example: <div>Please provide the search query.</div>
+    PROMPT;
 
         // Build functions from config, using 'required' if present
         $functions = [];
@@ -82,7 +75,9 @@ class McpAgentController extends Controller
             }
 
             if ($missing) {
-                $reply = "To proceed, please provide: " . implode(', ', $missing) . ".";
+                // Instead of form, ask for the missing info as plain HTML text
+                $missingFields = implode(', ', $missing);
+                $reply = "<div>Please provide: <strong>{$missingFields}</strong>.</div>";
             } else {
                 // Call Eloquent or custom function
                 $callable = explode('::', $tool['eloquent']);
@@ -93,25 +88,17 @@ class McpAgentController extends Controller
                     [
                         "role" => "system",
                         "content" => <<<PROMPT
-                            You are a helpful assistant.
-                            ALWAYS reply ONLY in HTML.
-                            NEVER use markdown, never wrap your answer in ``` or code blocks, and never use bullet points, numbers, or dashes.
-                            Reply using ONLY HTML tags: <div>, <p>, <strong>, <span>, <ul>, <li>.
-                            DO NOT use numbers or hyphens for lists—just separate each item with a new <div> or <p>.
-                            If you output anything other than valid HTML, the user interface will break and the user will not be able to see the answer.
-                            Highlight important fields such as name, status, email with <strong> or inline CSS.
-                            Each item in a list must be a separate <div>.
-
-                            For example, if you receive this data:
-                            [{"name": "Test", "status": "Open", "email": "test@ex.com"}]
-
-                            Reply as:
-                            <div>
-                            <p><strong>Name:</strong> Test</p>
-                            <p><strong>Status:</strong> <span style='color:green'>Open</span></p>
-                            <p><strong>Email:</strong> test@ex.com</p>
-                            </div>
-                            PROMPT
+                        You are a helpful assistant.
+                        ALWAYS reply ONLY in HTML.
+                        NEVER use markdown, never wrap your answer in ``` or code blocks, and never use bullet points, numbers, or dashes.
+                        Reply using ONLY HTML tags: <div>, <p>, <strong>, <span>, <ul>, <li>.
+                        DO NOT use numbers or hyphens for lists—just separate each item with a new <div> or <p>.
+                        If you output anything other than valid HTML, the user interface will break and the user will not be able to see the answer.
+                        Highlight important fields such as name, status, email with <strong> or inline CSS.
+                        Each item in a list must be a separate <div>.
+                        IF data is missing, NEVER generate an HTML form, just say what is missing in a <div>.
+                        For example: <div>Please provide the search query.</div>
+                    PROMPT
                     ],
                     [
                         "role" => "user",
@@ -168,6 +155,7 @@ class McpAgentController extends Controller
         return response()->json(['reply' => $reply]);
     }
 
+
     // Suggestions API remains unchanged
     public function suggestions(Request $request)
     {
@@ -179,5 +167,4 @@ class McpAgentController extends Controller
         };
         return response()->json(['suggestions' => $suggestions]);
     }
-
 }
