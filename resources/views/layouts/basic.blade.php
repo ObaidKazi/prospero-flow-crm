@@ -22,8 +22,8 @@
     <link rel="stylesheet" href="{{ asset('/asset/css/prospect-flow.css') }}">
     <link rel="stylesheet" href="{{ asset('/asset/theme/space/css/space.css') }}">
     @auth
-        @if(is_file(public_path("/asset/upload/company/".\Illuminate\Support\Str::slug(Auth::user()->company->name, '_')."/".\Illuminate\Support\Str::slug(Auth::user()->company->name, '_').".css")))
-            <link rel="stylesheet" href="{{ "/asset/upload/company/".\Illuminate\Support\Str::slug(Auth::user()->company->name, '_')."/".\Illuminate\Support\Str::slug(Auth::user()->company->name, '_').".css" }}">
+        @if(is_file(public_path("/asset/upload/company/".\Illuminate\Support\Str::slug(Auth::user()->company->name??'', '_')."/".\Illuminate\Support\Str::slug(Auth::user()->company->name??'', '_').".css")))
+            <link rel="stylesheet" href="{{ "/asset/upload/company/".\Illuminate\Support\Str::slug(Auth::user()->company->name??'', '_')."/".\Illuminate\Support\Str::slug(Auth::user()->company->name??'', '_').".css" }}">
         @endif
     @endauth
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
