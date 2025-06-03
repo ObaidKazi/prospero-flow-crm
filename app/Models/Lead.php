@@ -344,9 +344,22 @@ class Lead extends Model
         $lead = static::find($id);
         if (!$lead) return ['error' => 'Lead not found.'];
 
+        $allowedStatuses = [
+            'open', 'first_contact', 'recall', 'quote', 'quoted',
+            'waiting_for_answer', 'standby', 'closed', 'in_progress',
+            'waiting_feedback', 'converted'
+        ];
+
+        if (isset($params['status']) && !empty($params['status'])) {
+            if (!in_array($params['status'], $allowedStatuses)) {
+                return ['error' => 'Invalid status value. Allowed values are: ' . implode(', ', $allowedStatuses)];
+            }
+        }
+
         $updated = false;
         foreach (['name', 'email', 'status'] as $field) {
             if (isset($params[$field]) && !empty($params[$field])) {
+                // For status, we've already validated it if it was set
                 $lead->$field = $params[$field];
                 $updated = true;
             }

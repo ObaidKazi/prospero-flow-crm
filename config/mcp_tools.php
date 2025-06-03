@@ -28,7 +28,7 @@ return [
             'id' =>'integer',
             'name' =>'string',
             'email' =>'string',
-            'status' =>'string',
+            'status' =>'string (Allowed values: open, first_contact, recall, quote, quoted, waiting_for_answer, standby, closed, in_progress, waiting_feedback, converted)',
         ],
         'required' => ['id'], // Only 'id' is required!
         'eloquent' => 'App\\Models\\Lead::updateLeadFields',
