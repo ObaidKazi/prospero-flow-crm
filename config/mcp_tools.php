@@ -23,15 +23,12 @@ return [
     ],
     [
         'name' => 'update_lead',
-        'description' => 'Update a lead (id required, other fields optional)',
+        'description' => 'Update a lead (id required, other fields optional). Allowed statuses: open, first_contact, recall, quote, quoted, waiting_for_answer, standby, closed, in_progress, waiting_feedback, converted.',
         'parameters' => [
             'id' =>'integer',
             'name' =>'string',
             'email' =>'string',
-            'status' => [
-                    'type' => 'string',
-                    'description' => 'The new status for the lead. Allowed values: open, first_contact, recall, quote, quoted, waiting_for_answer, standby, closed, in_progress, waiting_feedback, converted',
-                ],
+            'status' =>'string',
         ],
         'required' => ['id'], // Only 'id' is required!
         'eloquent' => 'App\\Models\\Lead::updateLeadFields',
