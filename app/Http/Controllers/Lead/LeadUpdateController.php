@@ -10,6 +10,7 @@ use App\Models\Lead;
 use App\Models\Source;
 use App\Models\User;
 use App\Models\Company;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Squire\Models\Country;
@@ -35,6 +36,7 @@ class LeadUpdateController extends MainController
         $data['industries'] = $industries;
         $data['sellers'] = $user->getAllActiveByCompany(Auth::user()->company_id);
         $data['sources'] = Source::all();
+        $data['tags']=Tag::all();
         $data['editorType'] = 'advanced';
         $data['companies'] = [];
         if(auth()->user() && auth()->user()->hasRole('SuperAdmin')) {

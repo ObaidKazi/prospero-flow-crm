@@ -31,6 +31,9 @@ class ContactRepository
         $contact->job_title = ! empty($data['contact_job_title']) ? $data['contact_job_title'] : null;
         $contact->linkedin = ! empty($data['contact_linkedin']) ? $data['contact_linkedin'] : null;
         $contact->twitter = ! empty($data['contact_twitter']) ? $data['contact_twitter'] : null;
+        $contact->instagram = ! empty($data['contact_instagram']) ? $data['contact_instagram'] : null;
+        $contact->facebook = ! empty($data['contact_facebook']) ? $data['contact_facebook'] : null;
+        $contact->threads = ! empty($data['contact_threads']) ? $data['contact_threads'] : null;
         // $contact->country = $data['contact_country'];
         $contact->notes = ! empty($data['contact_notes']) ? $data['contact_notes'] : null;
         $contact->updated_at = now();

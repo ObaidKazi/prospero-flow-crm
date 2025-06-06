@@ -9,6 +9,7 @@ use App\Models\Industry;
 use App\Models\Lead;
 use App\Models\Company;
 use App\Models\Source;
+use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,6 +35,7 @@ class LeadCreateController extends MainController
         }
         $data['industries'] = $industries;
         $data['sellers'] = $user->getAllActiveByCompany((int) Auth::user()->company_id);
+        $data['tags']=Tag::all();
         $data['sources'] = Source::all();
         $data['editorType'] = 'advanced';
         $data['companies'] = [];

@@ -244,7 +244,17 @@ class Lead extends Model
         return Lead::all();
     }
 
-    public function getAllByCompanyId(int $company_id = 0, ?string $search, ?array $filters, ?string $order_by = 'created_at'): mixed
+    public function getTagsAttribute($value)
+    {
+        return $value ? json_decode($value, true) : [];
+    }
+
+    public function setTagsAttribute($value)
+    {
+        $this->attributes['tags'] = $value ? json_encode($value) : null;
+    }
+
+    public function getAllByCompanyId(?int $company_id = 0, ?string $search, ?array $filters, ?string $order_by = 'created_at'): mixed
     {
         if (is_null($order_by)) {
             $order_by = 'created_at';
