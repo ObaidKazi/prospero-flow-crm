@@ -76,6 +76,39 @@
                     </div>
                 </div>
                 <div class="col">
+                    <label for="contact_facebook">Facebook</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="lab la-facebook"></i></span>
+                        <input type="url" name="contact_facebook" id="contact_facebook"
+                               placeholder="https://facebook.com"
+                               value="{{ !empty($contact->facebook) ? $contact->facebook : '' }}"
+                               class="form-control form-control-lg"
+                        >
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="contact_instagram">Instagram</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="lab la-instagram"></i></span>
+                        <input type="url" name="contact_instagram" id="instagram"
+                               placeholder="https://instagram.com/"
+                               value="{{ !empty($contact->instagram) ? $contact->instagram : '' }}"
+                               class="form-control form-control-lg"
+                        >
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="contact_thread">Threads</label>
+                    <div class="input-group">
+                        <span class="input-group-text">@</i></span>
+                        <input type="url" name="contact_threads" id="contact_threads"
+                               placeholder="https://thread.com/in/"
+                               value="{{ !empty($contact->threads) ? $contact->threads : '' }}"
+                               class="form-control form-control-lg"
+                        >
+                    </div>
+                </div>
+                <div class="col">
                     <label for="contact_twitter">Twitter</label>
                     <div class="input-group">
                         <span class="input-group-text"><i class="lab la-twitter"></i></span>

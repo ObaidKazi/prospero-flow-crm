@@ -213,10 +213,14 @@
                 <td class="text-center text-nowrap d-none d-sm-table-cell">
                     @if($lead->tags)
                         @foreach($lead->tags as $tag)
-                            <a href="{{ url("/lead?search=$tag") }}" class="badge {{ $bootstrap_colors[array_rand($bootstrap_colors)] }} text-decoration-none">{{ $tag }}</a>
+                            @php
+                                $current_tag = \App\Models\Tag::find($tag);
+                            @endphp
+                            <span class="badge text-decoration-none" style="background-color:{{$current_tag->color}}">{{ $current_tag->name }}</span>
                         @endforeach
                     @endif
                 </td>
+                
                 <td class="text-center text-nowrap d-none d-sm-table-cell">
                     <span class="badge {{ App\Helpers\LeadStatus::renderBadge($lead->status) }}">{{ __(ucfirst($lead->status)) }}</span>
                 </td>

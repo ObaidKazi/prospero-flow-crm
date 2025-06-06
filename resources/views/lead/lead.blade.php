@@ -331,9 +331,25 @@
                 </div><!--./row-->
                 <div class="row">
                     <div class="col mt-2">
-                        <label for="tags"><i class="las la-hashtag"></i> {{ __('Tags') }}</label>
-                        <textarea name="tags" id="tags" placeholder="keyword, special keyword, keyword2"
-                                  class="form-control form-control-lg">{{ old('tags', (!empty($lead->tags)) ? implode(',', $lead->tags) : '') }}</textarea>
+                        <label for="tags">{{ __('Tags') }} <span class="text-danger">*</span></label>
+                          
+                            <select name="tags[]" class="form-select" id="multiple-select-field" data-placeholder="Choose Tags" multiple required>
+                                @foreach($tags as $tag)
+                                <option value="{{ $tag->id }}"
+                                    {{ in_array(
+                                        $tag->id,
+                                        // 1. First, check for old input (so validation errors repopulate correctly)
+                                        old('tags', 
+                                            // 2. Otherwise, fall back to the array of selected IDs (passed from controller on edit)
+                                            $lead->tags ?? []
+                                        )
+                                    ) ? 'selected' : '' }}>
+                                    {{ $tag->name }}
+                                </option>
+                            @endforeach
+                            </select>
+                        </select>
+
                     </div>
                     <div class="col mt-2">
                         <label for="seller_id">{{ __('Seller') }} <span class="text-danger">*</span></label>
@@ -343,7 +359,7 @@
                                 <option value="{{ $seller->id }}"
                                         @if(old('seller_id', $lead->seller_id) == $seller->id) selected="selected" @endif>
                                     {{ $seller->first_name . ' ' . $seller->last_name }}</option>
-                            @endforeach
+                            @endforeach`
                         </select>
                     </div>
                 </div>
@@ -423,7 +439,16 @@
             //whitelist: ["a", "aa", "aaa", "b", "bb", "ccc"]
         });
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.full.min.js"></script>
     <script>
+        $( '#multiple-select-field' ).select2( {
+    theme: "bootstrap-5",
+    width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+    placeholder: $( this ).data( 'placeholder' ),
+    closeOnSelect: false,
+} );
         $('#phone, #phone2, #mobile').on('input', function() {
             let $el = $(this);
             $el.val(function(i, val) {

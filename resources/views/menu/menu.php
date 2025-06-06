@@ -39,6 +39,12 @@ return [
         'icon_class' => 'las la-calendar',
         'permissions' => ['read calendar'],
     ],
+    [
+        'url' => url('/tag'),
+        'title' => __('Tags'),
+        'icon_class' => 'las la-box',
+        'permissions' => ['read tag'],
+    ],
     // [
     //     'is_drop_down' => true,
     //     'title' => 'E-mail',

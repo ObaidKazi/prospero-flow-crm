@@ -83,6 +83,9 @@ require_once __DIR__.'/module/supplier.php';
 // Ticket
 require_once __DIR__.'/module/ticket.php';
 
+// Tag
+require_once __DIR__.'/module/tag.php';
+
 // Regions
 Route::get('ajax/region/{country}', [\App\Http\Controllers\Region\RegionGetAjaxController::class, 'index']);
 
