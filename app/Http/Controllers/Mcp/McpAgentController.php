@@ -5,9 +5,49 @@ namespace App\Http\Controllers\Mcp;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use OpenAI\Laravel\Facades\OpenAI;
+use App\Models\Lead;
 
 class McpAgentController extends Controller
 {
+    public function uploadImage(Request $request)
+    {
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $image = $request->file('image');
+        $image_path = $image->getRealPath();
+        $image_data = base64_encode(file_get_contents($image_path));
+
+        $response = OpenAI::chat()->create([
+            'model' => 'gpt-4o',
+            'messages' => [
+                [
+                    'role' => 'user',
+                    'content' => [
+                        [
+                            'type' => 'text',
+                            'text' => 'Extract the lead information from this image. and pass to create_lead tool.',
+                        ],
+                        [
+                            'type' => 'image_url',
+                            'image_url' => [
+                                "url" => "data:image/jpeg;base64,{$image_data}"
+                            ]
+                        ],
+                    ],
+                ]
+            ],
+            'max_tokens' => 1024,
+        ]);
+
+        $extracted_text = $response['choices'][0]['message']['content'];
+
+        $request->merge(['message' => $extracted_text]);
+
+        return $this->chat($request);
+    }
+
     public function chat(Request $request)
     {
         $sessionId = $request->session()->getId();
@@ -97,6 +137,7 @@ class McpAgentController extends Controller
                         Highlight important fields such as name, status, email with <strong> or inline CSS.
                         Each item in a list must be a separate <div>.
                         and convert datetime in human readable format.
+                        If the result contains tags, display them as badges with the tag's color.
                         IF data is missing, NEVER generate an HTML form, just say what is missing in a <div>.
                         For example: <div>Please provide the search query.</div>
                     PROMPT

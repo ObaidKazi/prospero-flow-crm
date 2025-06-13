@@ -120,3 +120,4 @@ require_once __DIR__.'/module/payroll.php';
 
 Route::post('/api/mcp/chat', [McpAgentController::class, 'chat']);
 Route::get('/api/mcp/suggestions', [McpAgentController::class, 'suggestions']);
+Route::post('/api/mcp/upload', [App\Http\Controllers\Mcp\McpAgentController::class, 'uploadImage']);

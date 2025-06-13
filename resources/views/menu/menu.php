@@ -22,6 +22,12 @@ return [
         'permissions' => ['read customer'],
     ],
     [
+        'url' => url('/contact'),
+        'title' => __('Contacts'),
+        'icon_class' => 'las la-address-book',
+        'permissions' => ['read contact'],
+    ],
+    [
         'url' => url('/order'),
         'title' => __('Orders'),
         'icon_class' => 'las la-receipt',

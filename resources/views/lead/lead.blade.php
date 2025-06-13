@@ -419,7 +419,7 @@
 
         <div class="card-body bg-white">
             <div class="mt-2 table-responsive">
-                @include('contact.index', ['contacts' => $lead->contacts])
+                @include('contact.lead_contacts', ['contacts' => $lead->contacts])
             </div>
         </div><!--./card-body-->
     </div>

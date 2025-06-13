@@ -33,4 +33,13 @@ return [
         'required' => ['id'], // Only 'id' is required!
         'eloquent' => 'App\\Models\\Lead::updateLeadFields',
     ],
+    [
+        'name' => 'create_lead_from_image',
+        'description' => 'Create a new lead from the text extracted from an image.',
+        'parameters' => [
+            'prompt' => 'string',
+        ],
+        'required' => ['prompt'],
+        'eloquent' => 'App\\Models\\Lead::createFromImage',
+    ],
 ];

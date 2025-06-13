@@ -211,7 +211,16 @@ class Lead extends Model
             });
         }
 
-        return $query->get();
+        $leads = $query->get();
+
+        foreach ($leads as $lead) {
+            if (is_array($lead->tags)) {
+                $tags = \App\Models\Tag::whereIn('id', $lead->tags)->get();
+                $lead->tags = $tags;
+            }
+        }
+
+        return $leads;
     }
 
     public function seller()
@@ -382,6 +391,14 @@ class Lead extends Model
         }
     }
 
+public static function createFromImage($params)
+    {
+        $prompt = $params['prompt'];
+        return [
+            'message' => "I have the following information: {$prompt}. Should I create a new lead or update an existing one?",
+            'actions' => ['create', 'update']
+        ];
+    }
 
     protected static function booted(): void
     {

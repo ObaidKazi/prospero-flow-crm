@@ -22,8 +22,20 @@ class ContactSaveController extends MainController
     {
         $contact = $this->contactRepository->save($request->all());
 
-        $url = $contact->lead_id ? 'lead/show/'.$contact->lead_id : 'customer/show/'.$contact->customer_id;
+        // If the request comes from the contacts page, redirect back to contacts
+        $referer = $request->headers->get('referer');
+        if (strpos($referer, '/contact/create') !== false || strpos($referer, '/contact/update') !== false) {
+            return redirect('/contact');
+        }
 
-        return redirect($url);
+        // Otherwise, redirect to the lead or customer page
+        if ($contact->lead_id) {
+            return redirect('lead/show/'.$contact->lead_id);
+        } elseif ($contact->customer_id) {
+            return redirect('customer/show/'.$contact->customer_id);
+        }
+
+        // Default fallback
+        return redirect('/contact');
     }
 }

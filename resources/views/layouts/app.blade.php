@@ -205,7 +205,11 @@
         <div id="mcp-chat-suggestions" class="px-3 pb-2"></div>
         <!-- Form -->
         <form id="mcp-chat-form" autocomplete="off" class="d-flex border-top bg-white px-2 py-2">
-            <input type="text" id="mcp-chat-input" class="form-control rounded-start-pill"
+            <input type="file" id="mcp-chat-image-input" class="d-none" accept="image/*">
+            <button type="button" id="mcp-chat-attach-btn" class="btn btn-outline-secondary rounded-start-pill me-2">
+                <i class="fas fa-paperclip"></i>
+            </button>
+            <input type="text" id="mcp-chat-input" class="form-control"
                 placeholder="Type your message...">
             <button type="submit" class="btn btn-primary rounded-end-pill ms-2 shadow-sm px-4">Send</button>
         </form>
@@ -284,6 +288,37 @@
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $('#mcp-chat-attach-btn').on('click', function() {
+                $('#mcp-chat-image-input').click();
+            });
+
+            $('#mcp-chat-image-input').on('change', function() {
+                let file = this.files[0];
+                if (file) {
+                    let formData = new FormData();
+                    formData.append('image', file);
+                    formData.append('page', window.currentPage);
+
+                    showTyping(true);
+
+                    $.ajax({
+                        url: '/api/mcp/upload',
+                        type: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function(res) {
+                            showTyping(false);
+                            appendMessage('Assistant', res.reply, '', timeNow());
+                        },
+                        error: function() {
+                            showTyping(false);
+                            appendMessage('Assistant', '<span class="text-danger">Failed to upload image.</span>', '', timeNow());
+                        }
+                    });
                 }
             });
 

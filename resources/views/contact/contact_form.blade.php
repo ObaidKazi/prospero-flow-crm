@@ -3,8 +3,23 @@
         <form method="post" action="{{ url('/contact/save') }}">
             @csrf
             <input type="hidden" name="id" value="{{ !empty($contact) ? $contact->id : '' }}">
-            <input type="hidden" name="lead_id" value="{{ !empty($contact) ? $contact->lead_id : '' }}">
             <input type="hidden" name="customer_id" value="{{ !empty($contact) ? $contact->customer_id : '' }}">
+            
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="lead_id">{{ __('Associated Lead') }}</label>
+                    <select name="lead_id" id="lead_id" class="form-select form-select-lg">
+                        <option value="">{{ __('-- Select Lead (Optional) --') }}</option>
+                        @if(isset($leads))
+                            @foreach($leads as $lead)
+                                <option value="{{ $lead->id }}" {{ (!empty($contact) && $contact->lead_id == $lead->id) ? 'selected' : '' }}>
+                                    {{ $lead->name }}
+                                </option>
+                            @endforeach
+                        @endif
+                    </select>
+                </div>
+            </div>
             <div class="row">
                 <div class="col">
                     <label for="contact_first_name">{{ __('First name') }}</label>

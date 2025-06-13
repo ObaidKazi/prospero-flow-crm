@@ -267,7 +267,7 @@ $url = isset($lead) ? 'lead' : 'customer';
 
     <div class="card-body bg-white">
         <div class="mt-2 table-responsive">
-            @include('contact.index', ['contacts' => $item->contacts])
+            @include('contact.lead_contacts', ['contacts' => $item->contacts])
         </div>
     </div><!--./card-body-->
 </div>
